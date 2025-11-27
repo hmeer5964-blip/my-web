@@ -1,884 +1,0 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <link rel="icon" type="image/x-icon" href="/imge/favicon.ico">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>دانش هزاره | اخبار، فرهنگ و تاریخ هزاره‌ها</title>
-  <meta name="description" content="دانش هزاره ها - مرجع خبری، فرهنگی و تاریخی جامعه هزاره با تمرکز بر اخبار مهم، افراد مشهور، جامعه و تاریخ." />
-  <meta property="og:title" content="دانش هزاره ها | رسانه جامعه هزاره" />
-  <meta property="og:description" content="پلتفرمی برای پوشش اخبار، فرهنگ، هنر و تاریخ جامعه هزاره با گزارش‌های اختصاصی." />
-  <meta property="og:image" content="" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <style>
-    :root {
-      color-scheme: light;
-    }
-
-    body {
-      font-family: 'Vazirmatn', system-ui, sans-serif;
-      background: #f8fafc;
-      color: #0f172a;
-      overflow-x: hidden;
-    }
-
-    /* ---------- Splash intro animation ---------- */
-    #splash {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #0f172a;
-      color: #f8fafc;
-      z-index: 9999;
-      animation: splashFade 2.8s ease forwards;
-    }
-
-    @keyframes splashFade {
-      0% { opacity: 0; }
-      15% { opacity: 1; }
-      70% { opacity: 1; }
-      100% { opacity: 0; visibility: hidden; }
-    }
-
-    /* ---------- Scroll reveal + hover interactions ---------- */
-    .fade-section {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.9s ease, transform 0.9s ease;
-    }
-
-    .fade-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card-hover {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card-hover:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 25px 45px rgba(15, 23, 42, 0.12);
-    }
-    
-    /* ---------- Translation Button ---------- */
-    .translate-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 1rem;
-      border: 1px solid #e2e8f0;
-      background: white;
-      color: #0f172a;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .translate-btn:hover {
-      border-color: #0ea5e9;
-      color: #0ea5e9;
-      background: rgba(14, 165, 233, 0.08);
-    }
-    /* ---------- Responsive navigation interactions ---------- */
-    header {
-      transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
-    }
-
-    .nav-link {
-      position: relative;
-      transition: color 0.3s ease;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      right: 0;
-      width: 0;
-      height: 2px;
-      background: #30d5c8;
-      transition: width 0.3s ease;
-    }
-
-    .nav-link:hover {
-      color: #30d5c8;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-      left: 0;
-    }
-
-    /* ---------- Mobile menu overlay + panel ---------- */
-    #menuToggle {
-      transition: transform 0.3s ease;
-    }
-
-    #menuToggle .hamburger-line {
-      display: block;
-      width: 26px;
-      height: 2px;
-      background: #0f172a;
-      border-radius: 999px;
-      margin: 5px 0;
-      transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
-    }
-
-    #menuToggle.open .hamburger-line {
-      background: #30d5c8;
-    }
-
-    #menuToggle.open .line-1 {
-      transform: translateY(7px) rotate(-45deg);
-    }
-
-    #menuToggle.open .line-2 {
-      opacity: 0;
-    }
-
-    #menuToggle.open .line-3 {
-      transform: translateY(-7px) rotate(45deg);
-    }
-
-    .mobile-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.65);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
-      z-index: 60;
-    }
-
-    .mobile-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .mobile-panel {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      width: 320px;
-      max-width: 85vw;
-      background: #1a237e;
-      color: #fff;
-      box-shadow: -10px 0 35px rgba(15, 23, 42, 0.35);
-      transform: translateX(100%);
-      opacity: 0;
-      transition: transform 0.35s ease, opacity 0.35s ease;
-      z-index: 70;
-      border-radius: 0 0 0 24px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .mobile-panel.active {
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-    .mobile-panel nav a {
-      color: #fff;
-      font-weight: 500;
-      position: relative;
-      padding: 0.25rem 0;
-      transition: color 0.3s ease;
-    }
-
-    .mobile-panel nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      right: 0;
-      width: 0;
-      height: 2px;
-      background: #30d5c8;
-      transition: width 0.3s ease;
-    }
-
-    .mobile-panel nav a:hover {
-      color: #30d5c8;
-    }
-
-    .mobile-panel nav a:hover::after {
-      width: 100%;
-      left: 0;
-    }
-
-    /* ---------- Slider ---------- */
-    .slider-track {
-      display: flex;
-      transition: transform 0.8s ease;
-    }
-
-    .slider-card {
-      flex: 0 0 100%;
-    }
-
-    /* ---------- Gallery ---------- */
-    .gallery-grid img {
-      cursor: pointer;
-      transition: transform 0.4s ease;
-    }
-
-    .gallery-grid img:hover {
-      transform: scale(1.04);
-    }
-
-    /* ---------- Lightbox overlay ---------- */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-    }
-
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 80vh;
-      border-radius: 1rem;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    /* ---------- Utility buttons ---------- */
-    .btn-outline {
-      transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-    }
-
-    .btn-outline:hover {
-      color: #0ea5e9;
-      border-color: #0ea5e9;
-      background: rgba(14, 165, 233, 0.08);
-    }
-
-    .btn-primary {
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background: #0369a1;
-      transform: translateY(-2px);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .fade-section,
-      .card-hover,
-      .gallery-grid img,
-      .mobile-panel,
-      .slider-track,
-      .mobile-overlay,
-      #menuToggle .hamburger-line {
-        transition: none;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div id="splash">
-    <img style="width: 140px;" src="/imge/Logo.png" alt="هزاره های افغانستان">
-    <br>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-wide">دانش هزاره‌ها</h1>
-  </div>
-
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200/60 shadow-sm">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-2xl text-white flex items-center justify-center text-xl font-semibold"><img src="/imge/Logo.png" alt="رسانه هزاره ها"></div>
-        <div>
-          <p class="text-lg font-semibold">دانش هزاره‌ها</p>
-          <p class="text-sm text-slate-500">اولین سایت ملی هزاره‌ها</p>
-        </div>
-      </div>
-      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-700">
-        <a href="/fa/news/news.html" class="nav-link">اخبار مهم</a>
-        <a href="/fa/famous/famous.html" class="nav-link">افراد مشهور</a>
-        <a href="/fa/cultures/culture.html" class="nav-link">جامعه و فرهنگ</a>
-        <a href="/fa/history/histories.html" class="nav-link">تاریخ هزاره‌ها</a>
-        <a href="/fa/terms.html" class="nav-link"> شرایط استفاده</a>
-        <a href="/fa/privcy.html" class="nav-link"> سیاست حریم خصوصی</a>
-        <a href="/fa/about.html" class="nav-link">درباره ما</a>
-        <a href="/fa/contact_us.html" class="nav-link">تماس با ما</a>
-      </nav>
-      <button class="translate-btn hidden lg:flex">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-        </svg>
-        English
-      </button>
-      <button id="menuToggle" class="lg:hidden p-2 rounded-2xl border border-slate-200 text-slate-700" aria-label="باز کردن منو">
-        <span class="hamburger-line line-1"></span>
-        <span class="hamburger-line line-2"></span>
-        <span class="hamburger-line line-3"></span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Mobile overlay + slide-in panel for RTL navigation -->
-  <div id="menuOverlay" class="mobile-overlay" aria-hidden="true"></div>
-  <aside id="mobilePanel" class="mobile-panel" aria-label="منوی موبایل">
-    <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-2xl bg-white/15 text-white flex items-center justify-center text-lg font-semibold"><img src="/imge/Logo.png" alt="رسانه هزاره ها"></div>
-        <div>
-          <p class="font-semibold text-base">دانش هزاره‌ها</p>
-          <p class="text-xs text-white/70">اولین سایت ملی هزاره‌ها</p>
-        </div>
-      </div>
-      <button id="closeMenu" class="w-10 h-10 rounded-2xl border border-white/25 flex items-center justify-center text-white/80 hover:text-white transition" aria-label="بستن منو">×</button>
-    </div>
-    <nav class="flex flex-col px-6 py-6 gap-5 text-base">
-      <a href="/fa/news/news.html" class="nav-link">اخبار مهم</a>
-      <a href="/fa/famous/famous.html" class="nav-link">افراد مشهور</a>
-      <a href="/fa/cultures/culture.html" class="nav-link">جامعه و فرهنگ</a>
-      <a href="/fa/history/histories.html" class="nav-link">تاریخ هزاره‌ها</a>
-      <a href="/fa/terms.html" class="nav-link"> شرایط استفاده</a>
-      <a href="/fa/privcy.html" class="nav-link"> سیاست حریم خصوصی</a>
-      <a href="/fa/about.html" class="nav-link">درباره ما</a>
-      <a href="/fa/contact_us.html" class="nav-link">تماس با ما</a>
-      <button class="translate-btn mt-4 justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-        </svg>
-        English
-      </button>
-    </nav>
-  </aside>
-
-  <main class="container mx-auto px-4 py-10 space-y-14">
-    <section id="hero" class="fade-section bg-white rounded-3xl shadow-lg overflow-hidden">
-      <div class="relative">
-        <div class="slider-track" id="sliderTrack">
-          <article class="slider-card grid md:grid-cols-2 gap-6 p-6 items-center">
-            <div>
-              <p class="text-xs font-semibold text-slate-500 mb-2">ویژه امروز</p>
-              <h2 class="text-2xl font-bold mb-4">برنامه توسعه فرهنگی در بامیان با مشارکت نسل جوان</h2>
-              <p class="text-slate-600 mb-6">طرح جدیدی برای حفظ هنرهای اصیل هزاره‌ای با حمایت بزرگان فرهنگ و دانشگاهیان آغاز شد.</p>
-              <a href="#" class="inline-flex items-center gap-2 text-sky-600 font-semibold hover:gap-3 transition-all">ادامه خبر
-                <span class="inline-block w-4 h-4 border border-sky-600 rounded-full flex items-center justify-center">→</span></a>
-            </div>
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80" alt="اخبار هزاره" class="w-full h-72 object-cover rounded-2xl" loading="eager" fetchpriority="high" decoding="async">
-          </article>
-          <article class="slider-card grid md:grid-cols-2 gap-6 p-6 items-center">
-            <div>
-              <p class="text-xs font-semibold text-slate-500 mb-2">تحلیل ویژه</p>
-              <h2 class="text-2xl font-bold mb-4">نقش زنان هزاره در رسانه‌های نوین</h2>
-              <p class="text-slate-600 mb-6">گزارشی از خبرنگاران زن پیشرو و چالش‌های حضور آنان در فضای رسانه‌ای افغانستان.</p>
-              <a href="#" class="inline-flex items-center gap-2 text-sky-600 font-semibold hover:gap-3 transition-all">ادامه خبر
-                <span class="inline-block w-4 h-4 border border-sky-600 rounded-full flex items-center justify-center">→</span></a>
-            </div>
-            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=80" alt="نقش زنان" class="w-full h-72 object-cover rounded-2xl" loading="lazy" decoding="async">
-          </article>
-          <article class="slider-card grid md:grid-cols-2 gap-6 p-6 items-center">
-            <div>
-              <p class="text-xs font-semibold text-slate-500 mb-2">گزارش تصویری</p>
-              <h2 class="text-2xl font-bold mb-4">جشنواره موسیقی هزارگی در دایکندی</h2>
-              <p class="text-slate-600 mb-6">تصاویری از نوازندگان جوان و احیای سازهای محلی که شور تازه‌ای به جامعه داده است.</p>
-              <a href="#" class="inline-flex items-center gap-2 text-sky-600 font-semibold hover:gap-3 transition-all">ادامه خبر
-                <span class="inline-block w-4 h-4 border border-sky-600 rounded-full flex items-center justify-center">→</span></a>
-            </div>
-            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80" alt="جشنواره موسیقی" class="w-full h-72 object-cover rounded-2xl" loading="lazy" decoding="async">
-          </article>
-        </div>
-        <div class="absolute bottom-4 right-6 flex gap-2" id="sliderDots"></div>
-      </div>
-    </section>
-
-    <section id="latest" class="fade-section">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <p class="text-sm text-slate-500">ویژه‌ها</p>
-          <h3 class="text-2xl font-bold">آخرین خبرهای داغ</h3>
-        </div>
-        <a href="/news/news.html" class="px-4 py-2 rounded-full border border-slate-200 font-semibold text-slate-700 btn-outline">مشاهده همه خبرها</a>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80" alt="استارتاپ های هزاره" class="rounded-2xl mb-4 h-44 w-full object-cover" loading="lazy" decoding="async">
-          <p class="text-xs text-slate-500 mb-1">۲۸ حمل ۱۴۰۴</p>
-          <h4 class="text-lg font-semibold mb-2">راه‌اندازی استارتاپ‌های فناوری در میان دانشجویان هزاره</h4>
-          <p class="text-slate-600 text-sm">دانشجویان کابل و بامیان با حمایت شتابدهنده‌ها ایده‌های نوآورانه را معرفی کردند.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80" alt="نمایشگاه خوشنویسی" class="rounded-2xl mb-4 h-44 w-full object-cover" loading="lazy" decoding="async">
-          <p class="text-xs text-slate-500 mb-1">۲۶ حمل ۱۴۰۴</p>
-          <h4 class="text-lg font-semibold mb-2">برگزاری نمایشگاه خوشنویسی هزارگی در هرات</h4>
-          <p class="text-slate-600 text-sm">هنرمندان جوان آثار الهام‌گرفته از فرهنگ محلی را با استقبال خوبی ارائه کردند.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" alt="همایش دیاسپورا" class="rounded-2xl mb-4 h-44 w-full object-cover" loading="lazy" decoding="async">
-          <p class="text-xs text-slate-500 mb-1">۲۴ حمل ۱۴۰۴</p>
-          <h4 class="text-lg font-semibold mb-2">همایش نقش دیاسپورای هزاره در توسعه منطقه‌ای</h4>
-          <p class="text-slate-600 text-sm">پژوهشگران از راهکارهای حمایت از پروژه‌های کوچک در مناطق مرکزی گفتند.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <img src="https://images.unsplash.com/photo-1509057199576-632a47484ece?auto=format&fit=crop&w=800&q=80" alt="ورزشکاران هزاره" class="rounded-2xl mb-4 h-44 w-full object-cover" loading="lazy" decoding="async">
-          <p class="text-xs text-slate-500 mb-1">۲۳ حمل ۱۴۰۴</p>
-          <h4 class="text-lg font-semibold mb-2">ورزشکاران هزاره در مسابقات دو استقامت درخشش داشتند</h4>
-          <p class="text-slate-600 text-sm">تیم منتخب با ثبت رکورد جدید، حمایت گسترده‌ای را جلب کرد.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="بازسازی کتابخانه" class="rounded-2xl mb-4 h-44 w-full object-cover" loading="lazy" decoding="async">
-          <p class="text-xs text-slate-500 mb-1">۲۱ حمل ۱۴۰۴</p>
-          <h4 class="text-lg font-semibold mb-2">بازسازی کتابخانه تاریخی در ولسوالی یکاولنگ</h4>
-          <p class="text-slate-600 text-sm">این پروژه با هدف دسترسی جوانان به منابع آموزشی در حال تکمیل است.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="بورس تحصیلی" class="rounded-2xl mb-4 h-44 w-full object-cover" loading="lazy" decoding="async">
-          <p class="text-xs text-slate-500 mb-1">۲۰ حمل ۱۴۰۴</p>
-          <h4 class="text-lg font-semibold mb-2">برنامه بورس تحصیلی ویژه دانشجویان دختر هزاره</h4>
-          <p class="text-slate-600 text-sm">بنیادهای آموزشی بین‌المللی فرصت‌های تازه‌ای را معرفی کردند.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="famous" class="fade-section">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <p class="text-sm text-slate-500">چهره‌ها</p>
-          <h3 class="text-2xl font-bold">افراد مشهور هزاره</h3>
-        </div>
-        <a href="/famous/famous.html" class="text-sky-600 font-semibold">همه چهره‌ها</a>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover text-center">
-          <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=400&q=80" alt="دکتر سارا" class="w-32 h-32 mx-auto rounded-2xl object-cover mb-4 transition-transform hover:scale-105" loading="lazy" decoding="async">
-          <h4 class="text-lg font-semibold mb-1">عبدالعلی مزاری</h4>
-          <p class="text-sm text-slate-500 mb-3">رهبر حزب وحدت</p>
-          <a href="#" class="text-sm text-sky-600 font-semibold">مطالعه بیشتر</a>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover text-center">
-          <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=400&q=80" alt="کریم محسنی" class="w-32 h-32 mx-auto rounded-2xl object-cover mb-4" loading="lazy" decoding="async">
-          <h4 class="text-lg font-semibold mb-1">آیت الله محمد اسحاق فیاض</h4>
-          <p class="text-sm text-slate-500 mb-3">مرجع تقلید و عالم بزرگ</p>
-          <a href="/fa/famous/article/fayaaz.html" class="text-sm text-sky-600 font-semibold">مطالعه بیشتر</a>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover text-center">
-          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" alt="مینا اکبری" class="w-32 h-32 mx-auto rounded-2xl object-cover mb-4" loading="lazy" decoding="async">
-          <h4 class="text-lg font-semibold mb-1">سیماسمر</h4>
-          <p class="text-sm text-slate-500 mb-3">پزشک و پیشگام حقوق بشر هزاره</p>
-          <a href="/fa/famous/article/semaa.html" class="text-sm text-sky-600 font-semibold">مطالعه بیشتر</a>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover text-center">
-          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80" alt="سید احمد جاوید" class="w-32 h-32 mx-auto rounded-2xl object-cover mb-4" loading="lazy" decoding="async">
-          <h4 class="text-lg font-semibold mb-1">حسن پولادی</h4>
-          <p class="text-sm text-slate-500 mb-3">تاریخ نویس در حوزه هزاره لوجی</p>
-          <a href="/fa/famous/article/hasanfoladi.html" class="text-sm text-sky-600 font-semibold">مطالعه بیشتر</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="culture" class="fade-section">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <p class="text-sm text-slate-500">جامعه و فرهنگ</p>
-          <h3 class="text-2xl font-bold">زندگی و هنر هزاره</h3>
-        </div>
-        <a href="/cultures/culture.html" class="text-sky-600 font-semibold">مطالب بیشتر</a>
-      </div>
-      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <span class="text-3xl" aria-hidden="true">🎨</span>
-          <h4 class="text-lg font-semibold mt-3 mb-2">هنرهای تجسمی</h4>
-          <p class="text-sm text-slate-600">بررسی کارگاه‌های نقاشی و مجسمه‌سازی در مراکز فرهنگی غزنی و بامیان.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <span class="text-3xl" aria-hidden="true">🎧</span>
-          <h4 class="text-lg font-semibold mt-3 mb-2">موسیقی محلی</h4>
-          <p class="text-sm text-slate-600">گفت‌وگو با نوازندگان دمبوره و شیوه‌های نوین آموزش آنلاین.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <span class="text-3xl" aria-hidden="true">🍃</span>
-          <h4 class="text-lg font-semibold mt-3 mb-2">آیین‌های بومی</h4>
-          <p class="text-sm text-slate-600">گزارش از آیین‌های بهاره و نقش آن‌ها در همبستگی اجتماعی.</p>
-        </article>
-        <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-          <span class="text-3xl" aria-hidden="true">📚</span>
-          <h4 class="text-lg font-semibold mt-3 mb-2">ادبیات شفاهی</h4>
-          <p class="text-sm text-slate-600">ثبت داستان‌های مادربزرگ‌ها با هدف حفظ روایت‌های کهن.</p>
-        </article>
-      </div>
-    </section>
-
-    <div class="fade-section flex flex-col xl:flex-row gap-8">
-      <div class="xl:w-2/3 space-y-14">
-        <section id="history">
-          <div class="flex items-center justify-between mb-6">
-            <div>
-              <p class="text-sm text-slate-500">ریشه‌ها</p>
-              <h3 class="text-2xl font-bold">تاریخ هزاره‌ها</h3>
-            </div>
-            <a href="/history/histories.html" class="text-sky-600 font-semibold">مطالعه تاریخ</a>
-          </div>
-          <div class="grid md:grid-cols-2 gap-6">
-            <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-              <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80" alt="بامیان قرن نوزدهم" class="rounded-2xl mb-4 h-48 w-full object-cover filter grayscale" loading="lazy" decoding="async">
-              <h4 class="text-lg font-semibold mb-2">پویایی‌های بامیان در قرن نوزدهم</h4>
-              <p class="text-sm text-slate-600">تحلیل اسناد تاریخی درباره اقتصاد محلی و ارتباطات منطقه‌ای.</p>
-            </article>
-            <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-              <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80" alt="مهاجرت های معاصر" class="rounded-2xl mb-4 h-48 w-full object-cover filter grayscale" loading="lazy" decoding="async">
-              <h4 class="text-lg font-semibold mb-2">مهاجرت‌های معاصر و پیامدهای اجتماعی</h4>
-              <p class="text-sm text-slate-600">بررسی موج‌های مهاجرت به ایران، اروپا و تاثیر آن بر هویت جمعی.</p>
-            </article>
-            <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-              <img src="https://images.unsplash.com/photo-1472145246862-b24cf25c3659?auto=format&fit=crop&w=800&q=80" alt="آثار بودایی" class="rounded-2xl mb-4 h-48 w-full object-cover filter grayscale" loading="lazy" decoding="async">
-              <h4 class="text-lg font-semibold mb-2">نقش آثار بودایی در هویت تاریخی</h4>
-              <p class="text-sm text-slate-600">بررسی مجسمه‌های بامیان و اهمیت آن در گفت‌وگوی تمدن‌ها.</p>
-            </article>
-            <article class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/60 card-hover">
-              <img src="https://images.unsplash.com/photo-1472145246862-b24cf25c3659?auto=format&fit=crop&w=800&q=80" alt="آرشیو شفاهی" class="rounded-2xl mb-4 h-48 w-full object-cover filter grayscale" loading="lazy" decoding="async">
-              <h4 class="text-lg font-semibold mb-2">آرشیو شفاهی با روایت بزرگان</h4>
-              <p class="text-sm text-slate-600">پروژه ضبط خاطرات سالمندان برای نسل آینده.</p>
-            </article>
-          </div>
-        </section>
-
-        <section id="videos" class="space-y-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-slate-500">رسانه</p>
-              <h3 class="text-2xl font-bold">ویدیوهای منتخب</h3>
-            </div>
-            <a href="#" class="text-sky-600 font-semibold">بیشتر ببینید</a>
-          </div>
-          <div class="grid md:grid-cols-3 gap-6">
-            <article class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-3 card-hover">
-              <div class="rounded-2xl overflow-hidden aspect-video mb-3">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/csHzXOTBfmk" title="مستند سخن؛ نگاهی به سخنرانیهای بابه مزاری" loading="lazy" allowfullscreen></iframe>
-              </div>
-              <h4 class="font-semibold mb-1">گفت‌وگو درباره آموزش</h4>
-              <p class="text-sm text-slate-600">مصاحبه با معلمان مناطق مرکزی.</p>
-            </article>
-            <article class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-3 card-hover">
-              <div class="rounded-2xl overflow-hidden aspect-video mb-3">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/H6lOQZav_Hw" title="نسل کشی هَزاره ها : یک جنایت فراموش شده" loading="lazy" allowfullscreen></iframe>
-              </div>
-              <h4 class="font-semibold mb-1">مستند تاریخ شفاهی</h4>
-              <p class="text-sm text-slate-600">روایت نسل‌های گذشته از مهاجرت.</p>
-            </article>
-            <article class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-3 card-hover">
-              <div class="rounded-2xl overflow-hidden aspect-video mb-3">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/-jUs8K5JUcM" title="هزاره، هزارستان، هزاره‌جات، بربرستان، تاریخ هزاره‌ها، هزاره‌های مغول؛موضوعاتی که در ویدئو بیان شدن!" loading="lazy" allowfullscreen></iframe>
-              </div>
-              <h4 class="font-semibold mb-1">گفت‌وگو درباره آموزش</h4>
-              <p class="text-sm text-slate-600">مصاحبه با معلمان مناطق مرکزی.</p>
-            </article>
-            <article class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-3 card-hover">
-              <div class="rounded-2xl overflow-hidden aspect-video mb-3">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/rvRYPuBvsHo" title="Hazaragi Culture Day(روز فرهنگ هزارگی) cinematic shoots | Jawad Amiri" loading="lazy" allowfullscreen></iframe>
-              </div>
-              <h4 class="font-semibold mb-1">کنسرت موسیقی هزارگی</h4>
-              <p class="text-sm text-slate-600">اجرای زنده با سازهای بومی.</p>
-            </article>
-            <article class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-3 card-hover">
-              <div class="rounded-2xl overflow-hidden aspect-video mb-3">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/lmJN-vXCtWo" title="تاریخ هزاره‌ها؛ گفتگوی رحمت الله توکلی با عزیزالله بیانی در مورد تاریخ هزاره‌ها." loading="lazy" allowfullscreen></iframe>
-              </div>
-              <h4 class="font-semibold mb-1">کنسرت موسیقی هزارگی</h4>
-              <p class="text-sm text-slate-600">اجرای زنده با سازهای بومی.</p>
-            </article>
-            <article class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-3 card-hover">
-              <div class="rounded-2xl overflow-hidden aspect-video mb-3">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/ZdQP8-gHjxg?list=RDZdQP8-gHjxg" title="Dawood Sarkhosh-Sarzamin Manسرزمين من-داوود سرخوش" loading="lazy" allowfullscreen></iframe>
-              </div>
-              <h4 class="font-semibold mb-1">کنسرت موسیقی هزارگی</h4>
-              <p class="text-sm text-slate-600">اجرای زنده با سازهای بومی.</p>
-            </article>
-          </div>
-        </section>
-      </div>
-
-      <aside class="xl:w-1/3 space-y-6 order-first xl:order-last">
-        <div class="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/60">
-          <h4 class="text-xl font-semibold mb-4">آخرین مقالات</h4>
-          <ul class="space-y-3 text-sm text-slate-600">
-            <li class="flex items-center justify-between">
-              <span>تحلیل رسانه‌ای در میان نسل Z</span>
-              <span class="text-slate-400">۲۴ حمل</span>
-            </li>
-            <li class="flex items-center justify-between">
-              <span>چشم‌انداز گردشگری بامیان</span>
-              <span class="text-slate-400">۲۲ حمل</span>
-            </li>
-            <li class="flex items-center justify-between">
-              <span>پروژه‌های انرژی پاک</span>
-              <span class="text-slate-400">۲۰ حمل</span>
-            </li>
-          </ul>
-        </div>
-        <div class="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/60">
-          <h4 class="text-xl font-semibold mb-4">پر بازدیدترین‌ها</h4>
-          <ol class="space-y-3 list-decimal list-inside text-sm text-slate-600">
-            <li>زندگی دانشجویان هزاره در خارج</li>
-            <li>گزارش ویژه از بامیان</li>
-            <li>گفت‌وگو با فعالان حقوق زنان</li>
-          </ol>
-        </div>
-        <div class="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/60">
-          <h4 class="text-xl font-semibold mb-4">دسته‌بندی‌ها</h4>
-          <div class="flex flex-wrap gap-2 text-sm">
-            <span class="px-3 py-1 rounded-full bg-slate-100">خبر فوری</span>
-            <span class="px-3 py-1 rounded-full bg-slate-100">تحلیل</span>
-            <span class="px-3 py-1 rounded-full bg-slate-100">فرهنگ</span>
-            <span class="px-3 py-1 rounded-full bg-slate-100">دیاسپورا</span>
-            <span class="px-3 py-1 rounded-full bg-slate-100">اقتصاد</span>
-          </div>
-        </div>
-        <div class="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/60">
-          <h4 class="text-xl font-semibold mb-4">ما را دنبال کنید</h4>
-          <div class="flex gap-3 text-slate-700">
-            <a href="https://www.facebook.com/profile.php?id=61584366710111" class="fa fa-facebook"></a>
-            <a href="https://x.com/agaahe_blog?s=09" class="fa fa-twitter"></a>
-            <a href="https://youtube.com/@azergi_knowledge?si=iQyTOBzj4PEhn2MD" class="fa fa-youtube"></a>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-    <section id="about" class="fade-section bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/60">
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <p class="text-sm text-slate-500">درباره ما</p>
-          <h3 class="text-2xl font-bold mb-4">چرا Hazara Insight؟</h3>
-          <p class="text-slate-600 leading-7">ما رسانه‌ای مستقل هستیم که با تمرکز بر روایت‌های اصیل، اخبار دقیق و تحلیل‌های عمیق از جامعه هزاره را ارائه می‌دهیم. رسالت ما حفظ فرهنگ، توسعه دانش و توانمندسازی نسل جوان است.</p>
-        </div>
-        <div class="bg-slate-50 rounded-2xl p-6 flex flex-col gap-4">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white shadow flex items-center justify-center text-sky-500 text-xl">★</div>
-            <div>
-              <p class="font-semibold">پوشش سریع و دقیق</p>
-              <p class="text-sm text-slate-500">همیشه در خدمت اطلاع‌رسانی سالم.</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white shadow flex items-center justify-center text-sky-500 text-xl">⚡</div>
-            <div>
-              <p class="font-semibold">رویکرد دیجیتال</p>
-              <p class="text-sm text-slate-500">رسانه‌ای سریع و سازگار با موبایل.</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white shadow flex items-center justify-center text-sky-500 text-xl">🤝</div>
-            <div>
-              <p class="font-semibold">جامعه‌محور</p>
-              <p class="text-sm text-slate-500">انعکاس صدای همه نسل‌ها.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="fade-section bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/60">
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <p class="text-sm text-slate-500">ارتباط با ما</p>
-          <h3 class="text-2xl font-bold mb-4">پیام خود را بفرستید</h3>
-          <p class="text-slate-600 mb-6">خبر، عکس یا پیشنهاد خود را برای ما ارسال کنید تا در Hazara Insight منتشر شود.</p>
-          <div class="space-y-3 text-sm text-slate-600">
-            <p>ایمیل: hello@hazara-insight.com</p>
-            <p>واتس‌اپ: +93 700 000 000</p>
-            <p>آدرس: کابل، منطقه دشت برچی</p>
-          </div>
-        </div>
-        <form class="space-y-4" action="/php/cont.php" method="post">
-          <input type="text" placeholder="نام کامل" class="w-full rounded-2xl border border-slate-200 px-4 py-3 focus:outline-none focus:border-sky-500" required>
-          <input type="email" placeholder="ایمیل" class="w-full rounded-2xl border border-slate-200 px-4 py-3 focus:outline-none focus:border-sky-500" required>
-          <textarea rows="4" placeholder="پیام شما" class="w-full rounded-2xl border border-slate-200 px-4 py-3 focus:outline-none focus:border-sky-500" required></textarea>
-          <button type="submit" class="w-full bg-sky-600 text-white py-3 rounded-2xl font-semibold btn-primary">ارسال پیام</button>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="bg-slate-900 text-slate-200 mt-14 fade-section">
-    <div class="container mx-auto px-4 py-10 grid md:grid-cols-4 gap-8">
-      <div class="md:col-span-1">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-11 h-11 rounded-2xl bg-white/15 text-white flex items-center justify-center text-lg font-semibold"><img src="/imge/Logo.png" alt="رسانه هزاره ها"></div>
-          <div>
-            <p class="font-semibold text-base">دانش هزاره‌ها</p>
-            <p class="text-xs text-white/70">اولین سایت ملی هزاره‌ها</p>
-          </div>
-        </div>رسانه مستقل خبری، فرهنگی و تاریخی جامعه هزاره با تمرکز بر اخبار مهم، افراد مشهور، جامعه و تاریخ.</p>
-      </div>
-      <div>
-        <h4 class="text-lg font-semibold mb-3">لینک‌های سریع</h4>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li><a href="/index.html" class="hover:text-sky-400 transition">صفحه اصلی</a></li>
-          <li><a href="/fa/news/news.html" class="hover:text-sky-400 transition">اخبار</a></li>
-          <li><a href="/fa/famous/famous.html" class="hover:text-sky-400 transition">افراد مشهور</a></li>
-          <li><a href="/fa/history/histories.html" class="hover:text-sky-400 transition">تاریخ هزاره‌ها</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-lg font-semibold mb-3">سیاست‌ها</h4>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li><a href="/fa/terms.html" class="hover:text-sky-400 transition">شرایط استفاده</a></li>
-          <li><a href="/fa/privcy.html" class="hover:text-sky-400 transition">حریم خصوصی</a></li>
-          <li><a href="/fa/about.html" class="hover:text-sky-400 transition">درباره ما</a></li>
-          <li><a href="/fa/contact_us.html" class="hover:text-sky-400 transition">تماس باما</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-xl font-semibold mb-4">ما را دنبال کنید</h4>
-        <div class="flex gap-3 mt-4">
-          <a href="https://www.facebook.com/profile.php?id=61584366710111" class="fa fa-facebook"></a>
-          <a href="https://x.com/agaahe_blog?s=09" class="fa fa-twitter"></a>
-          <a href="https://youtube.com/@azergi_knowledge?si=iQyTOBzj4PEhn2MD" class="fa fa-youtube"></a>
-        </div>
-      </div>
-    </div>
-    <div class="border-t border-slate-800 text-center text-sm py-4 text-slate-400">
-      <p>© ۱۴۰۴ - ۲۰۲۵ دانش هزاره‌ها. تمام حقوق محفوظ است.</p>
-    </div>
-  </footer>
-
-  <div id="lightbox" class="lightbox" aria-label="نمایش تصویر بزرگ">
-    <img src="" alt="نمایش تصویر" id="lightboxImage">
-  </div>
-
-  <script>
-    // Translation button functionality
-    const translateButtons = document.querySelectorAll('.translate-btn');
-    translateButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // In a real implementation, this would trigger translation
-        alert('قابلیت ترجمه به انگلیسی فعال خواهد شد');
-        // Example: window.location.href = '/en/massacres';
-      });
-    });
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      const splash = document.getElementById('splash');
-      setTimeout(() => splash.style.display = 'none', 2800);
-
-      /* Intersection Observer for fade-in sections */
-      const sections = document.querySelectorAll('.fade-section');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.2 });
-      sections.forEach(section => observer.observe(section));
-
-      /* Mobile slide-in panel logic for RTL experience */
-      const menuToggle = document.getElementById('menuToggle');
-      const menuOverlay = document.getElementById('menuOverlay');
-      const mobilePanel = document.getElementById('mobilePanel');
-      const closeMenuBtn = document.getElementById('closeMenu');
-      const panelLinks = mobilePanel.querySelectorAll('a');
-      let menuOpen = false;
-
-      const openMenu = () => {
-        menuOpen = true;
-        menuToggle.classList.add('open');
-        menuOverlay.classList.add('active');
-        mobilePanel.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      };
-
-      const closeMenu = () => {
-        menuOpen = false;
-        menuToggle.classList.remove('open');
-        menuOverlay.classList.remove('active');
-        mobilePanel.classList.remove('active');
-        document.body.style.overflow = '';
-      };
-
-      menuToggle.addEventListener('click', () => {
-        menuOpen ? closeMenu() : openMenu();
-      });
-
-      closeMenuBtn.addEventListener('click', closeMenu);
-      menuOverlay.addEventListener('click', closeMenu);
-      panelLinks.forEach(link => link.addEventListener('click', closeMenu));
-
-      window.addEventListener('keyup', (event) => {
-        if (event.key === 'Escape' && menuOpen) closeMenu();
-      });
-
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024 && menuOpen) {
-          closeMenu();
-        }
-      });
-
-      /* Hero slider autoplay */
-      const sliderTrack = document.getElementById('sliderTrack');
-      const slides = document.querySelectorAll('.slider-card');
-      const dotsContainer = document.getElementById('sliderDots');
-      let currentSlide = 0;
-
-      slides.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-300 transition-all';
-        dot.addEventListener('click', () => moveToSlide(index));
-        dotsContainer.appendChild(dot);
-      });
-
-      const dots = dotsContainer.querySelectorAll('button');
-
-      function moveToSlide(index) {
-        currentSlide = index;
-        sliderTrack.style.transform = `translateX(-${index * 100}%)`;
-        dots.forEach((dot, idx) => {
-          dot.style.background = idx === index ? '#0ea5e9' : '#cbd5f5';
-          dot.style.width = idx === index ? '24px' : '10px';
-        });
-      }
-
-      let sliderInterval = setInterval(() => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        moveToSlide(currentSlide);
-      }, 5000);
-
-      sliderTrack.addEventListener('mouseenter', () => clearInterval(sliderInterval));
-      sliderTrack.addEventListener('mouseleave', () => {
-        sliderInterval = setInterval(() => {
-          currentSlide = (currentSlide + 1) % slides.length;
-          moveToSlide(currentSlide);
-        }, 5000);
-      });
-
-      moveToSlide(0);
-
-      /* Gallery lightbox */
-      const galleryImages = document.querySelectorAll('.gallery-grid img');
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImage = document.getElementById('lightboxImage');
-
-      galleryImages.forEach(img => {
-        img.addEventListener('click', () => {
-          lightboxImage.src = img.src;
-          lightbox.style.display = 'flex';
-        });
-      });
-
-      lightbox.addEventListener('click', () => {
-        lightbox.style.display = 'none';
-      });
-    });
-  </script>
-</body>
-</html>
